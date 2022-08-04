@@ -6,7 +6,7 @@ const squares = [];
 const clrNeutral900 = "#000000";
 const clrNeutral100 = "#ffffff";
 let drawingToggle;
-let sizeOfGrid = 84;
+let sizeOfGrid = 64;
 
 // spacebar: clears screen of painted div's
 document.addEventListener("keyup", (e) => {
@@ -64,6 +64,7 @@ body.appendChild(section);
 
 // mouseover callback: highlights square via css properties
 let colorMe = function (square) {
+  // console.log(square.target);
   square.target.classList.add("color-me");
 };
 
