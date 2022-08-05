@@ -1,5 +1,5 @@
 const body = document.getElementsByTagName("body")[0];
-const section = document.createElement("section");
+const etchASketch = document.getElementById("etch-a-sketch");
 const container = document.createElement("div");
 const rows = [];
 const squares = [];
@@ -7,6 +7,8 @@ const clrNeutral900 = "#000000";
 const clrNeutral100 = "#ffffff";
 let drawingToggle;
 let sizeOfGrid = 64;
+
+console.log(etchASketch);
 
 // spacebar: clears screen of painted div's
 document.addEventListener("keyup", (e) => {
@@ -57,8 +59,7 @@ for (let row = 0; row < sizeOfGrid; row++) {
 }
 
 // add container > section element > body element
-section.appendChild(container);
-body.appendChild(section);
+etchASketch.appendChild(container);
 
 // functions
 
