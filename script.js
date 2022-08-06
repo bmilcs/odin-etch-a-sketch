@@ -44,23 +44,19 @@ bgColor.addEventListener("input", bgColorEvent, false);
 clearBtn.onclick = () => eraseDrawing();
 
 // mousedown: enable drawing mode
-document.addEventListener("mousedown", (e) => {
+etchASketch.addEventListener("mousedown", (e) => {
   if (e.button === 0) {
     // left click: draw in fgColor
-    toggleDrawingMode("x");
     color = fgColor.value;
-  } else if (e.button === 2) {
-    // right click: draw in bgColor
     toggleDrawingMode("x");
+    // right click: draw in bgColor (erase)
+  } else if (e.button === 2) {
     color = bgColor.value;
     eraserMode = true;
+    toggleDrawingMode("x");
   }
-});
-
-// click: color in current square (hovering requires leaving current square)
-etchASketch.onclick = (e) => {
   e.target.style.backgroundColor = color;
-};
+});
 
 // mouseup: disable drawing mode
 document.addEventListener("mouseup", (e) => {
@@ -68,11 +64,7 @@ document.addEventListener("mouseup", (e) => {
   eraserMode = false;
 });
 
-//
-// PREVENT DEFAULTS
-//
-
-// right click
+// prevent default: right click
 if (document.addEventListener) {
   document.addEventListener(
     "contextmenu",
@@ -87,7 +79,7 @@ if (document.addEventListener) {
   });
 }
 
-// drag & drop
+// prevent default: drag & drop
 // this was having a negative effect on toggleDrawingMode
 etchASketch.addEventListener("dragstart", (e) => {
   e.preventDefault();
@@ -112,6 +104,7 @@ function toggleDrawingMode(x) {
 // mouseover callback: highlights square based on fgColor value
 let colorMe = function (square) {
   square.target.style.backgroundColor = color;
+  // remove dataset to allow bg-color changes to work on erased squares
   if (eraserMode) square.target.removeAttribute("data-changed");
   else square.target.setAttribute("data-changed", true);
 };
