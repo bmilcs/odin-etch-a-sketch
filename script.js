@@ -36,7 +36,7 @@ slider.onchange = function () {
   createGrid(this.value);
 };
 
-// bg-color change: set color of squares that haven't been drawn in
+// bg-color change: set bg-color of squares that haven't been 'changed' (drawn in)
 bgColor.onchange = function () {
   squares.forEach((square) => {
     if (!square.dataset.changed) square.style.backgroundColor = this.value;
@@ -100,7 +100,7 @@ etchASketch.addEventListener("drop", (e) => {
 //
 
 // toggle drawing functionality: add/remove eventlistener
-function toggleDrawingMode(x, color) {
+function toggleDrawingMode(x) {
   // var = !var was inconsistent, causing the drawing functionality
   // to occasionally invert (mouseup: drawing, mousedown: stop drawing)
   if (x) etchASketch.addEventListener("mouseover", colorMe);
@@ -116,12 +116,13 @@ let colorMe = function (square) {
 
 // create etch-a-sketch grid
 function createGrid(size) {
+  // create "size" number of rows
   for (let row = 0; row < size; row++) {
     rows[row] = document.createElement("div");
     rows[row].classList.add("row");
     rows[row].setAttribute("draggable", false);
 
-    // within each row, create sizeOfGrid number of squares:
+    // within each row, create "size" number of squares
     for (let square = 0; square < size; square++) {
       // prevent each iteration from overwriting the previous 1-16
       let sq = size * row + square;
@@ -131,7 +132,7 @@ function createGrid(size) {
       squares[sq].setAttribute("draggable", false);
       rows[row].appendChild(squares[sq]);
     }
-    // append row of 16 squares to final container
+    // append current row of squares to final container
     etchASketch.appendChild(rows[row]);
   }
 }
