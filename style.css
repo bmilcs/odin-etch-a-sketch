@@ -100,6 +100,7 @@ button:hover {
 .square {
   background-color: var(--clr-neutral-100);
   flex-grow: 1;
+  border: 1px solid #00000033;
 }
 
 /* footer */
