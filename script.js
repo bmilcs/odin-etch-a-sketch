@@ -37,11 +37,8 @@ slider.onchange = function () {
 };
 
 // bg-color change: set bg-color of squares that haven't been 'changed' (drawn in)
-bgColor.onchange = function () {
-  squares.forEach((square) => {
-    if (!square.dataset.changed) square.style.backgroundColor = this.value;
-  });
-};
+bgColor.addEventListener("change", bgColorEvent, false);
+bgColor.addEventListener("input", bgColorEvent, false);
 
 // clear button: reset grid
 clearBtn.onclick = () => eraseDrawing();
@@ -149,5 +146,12 @@ function eraseDrawing() {
   squares.forEach((square) => {
     square.style.backgroundColor = bgColor.value;
     square.removeAttribute("data-changed");
+  });
+}
+
+// change bg-color for all squares that haven't been drawn in yet
+function bgColorEvent(e) {
+  squares.forEach((square) => {
+    if (!square.dataset.changed) square.style.backgroundColor = e.target.value;
   });
 }
