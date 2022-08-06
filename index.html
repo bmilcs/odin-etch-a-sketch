@@ -1,56 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bryan's Etch-A-Sketch Project</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bryan's Etch-A-Sketch Project</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
+  <body>
+    <header class="header">
+      <h1>Etch-A-Sketch</h1>
+      <p>The Odin Project: Assignment #4</p>
+    </header>
 
-<body>
+    <section class="section">
+      <div class="section-container">
+        <div id="etch-a-sketch">
+          <!-- created with script.js -->
+        </div>
 
-  <header class="header">
-    <h1>Etch-A-Sketch</h1>
-    <p>created by bmilcs</p>
-  </header>
-
-  <section class="section">
-
-    <div class="toolbox-container">
-      <button id="clear-btn">Clear</button>
-      <button id="raindow-btn">Rainbow Mode</button>
-      <div class="pen-color-container">
-        <p>Pen Color</p>
-        <input type="color" id="pen-color" name="pen-color" value="#ff0000">
+        <div class="toolbox-container">
+          <button id="raindow-btn">rainbow mode</button>
+          <button id="clear-btn">clear</button>
+          <input
+            type="range"
+            min="16"
+            max="64"
+            value="16"
+            class="slider"
+            id="grid-size-range"
+          />
+          <input type="color" id="fg-color" name="pen-color" value="#ffffff" />
+          <input type="color" id="bg-color" name="bg-color" value="#000000" />
+        </div>
       </div>
-      <div class="bg-color-container">
-        <p>Background Color</p>
-        <input type="color" id="bg-color" name="bg-color" value="#ff0000">
-      </div>
-      <div class="grid-size-container">
-        <p>Grid Size</p>
-        <input type="range" min="16" max="64" value="16" class="slider" id="grid-size-range">
-      </div>
-    </div>
+    </section>
 
-    <div id="etch-a-sketch">
-      <!-- created with script.js -->
-    </div>
-
-  </section>
-
-  <footer class="footer">
-
-    <div class="footer-container">
-      Copyright 2022<a href="https://www.github.com/bmilcs"><img src="./img/github.svg" alt="GitHub Link"></a>Bryan
-      Miller
-    </div>
-
-  </footer>
-
-</body>
-
+    <footer>
+      created by bmilcs
+      <a href="https://www.github.com/bmilcs"
+        ><img src="./img/github.svg" alt="GitHub Link"
+      /></a>
+    </footer>
+  </body>
 </html>
