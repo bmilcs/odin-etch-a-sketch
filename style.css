@@ -76,6 +76,16 @@ input[type="range"] {
   border: 0;
 }
 
+input[type="color"] {
+  -webkit-appearance: none;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
 button:hover {
   background-color: var(--clr-accent-900);
   color: var(--clr-neutral-100);
