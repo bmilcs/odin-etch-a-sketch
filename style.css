@@ -102,15 +102,6 @@ button:hover {
   flex-grow: 1;
 }
 
-.color-me {
-  background-color: var(--clr-neutral-900);
-}
-
-.container.color-me {
-  /* prevent js applied class to affect container: */
-  background-color: transparent;
-}
-
 /* footer */
 footer {
   display: flex;

@@ -1,102 +1,122 @@
 const body = document.getElementsByTagName("body")[0];
-const etchASketch = document.getElementById("etch-a-sketch");
-const container = document.createElement("div");
+const placeholder = document.getElementById("etch-a-sketch");
+const etchASketch = document.createElement("div");
 const slider = document.getElementById("grid-size-range");
 const clearBtn = document.getElementById("clear-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
+const fgColor = document.getElementById("fg-color");
+const bgColor = document.getElementById("bg-color");
 const rows = [];
 const squares = [];
-const clrNeutral900 = "#000000";
-const clrNeutral100 = "#ffffff";
-let sizeOfGrid = 16;
 let drawingToggle;
+let oldBackgroundColor = "rgb(255, 255, 255)";
 
-console.log(etchASketch);
-
-createGrid(sizeOfGrid);
+// draw initial grid of 16x16
+createGrid("16");
 
 // setup main etch-a-sketch container
-container.classList.add("container");
-container.setAttribute("draggable", false);
+etchASketch.classList.add("container");
+etchASketch.setAttribute("draggable", false);
 
-// add container > section element > body element
-etchASketch.appendChild(container);
+// add container to etchASketch placeholder
+placeholder.appendChild(etchASketch);
+
+//
+// EVENT LISTENERS
+//
 
 // slider onchange: set sizeOfGrid to slider.value
 slider.onchange = function () {
   removeGrid();
   createGrid(this.value);
-  console.log("grid resizing: " + this.value);
+};
+
+// bg-color change: set color of squares that haven't been drawn yet
+bgColor.onchange = function () {
+  squares.forEach((square) => {
+    if (!square.dataset.changed) square.style.backgroundColor = this.value;
+  });
+  oldBackgroundColor = this.value;
 };
 
 // clear button: reset grid
-clearBtn.onclick = () => resetGrid();
+clearBtn.onclick = () => eraseDrawing();
 
-// mousedown: enable drawing
+// mousedown: enable drawing mode
 document.addEventListener("mousedown", (e) => {
   toggleDrawing("x");
 });
 
-// mouseup: disable drawing
+// mouseup: disable drawing mode
 document.addEventListener("mouseup", (e) => {
   toggleDrawing();
 });
 
-// enable drawing function
-function toggleDrawing(x) {
-  // var = !var was inconsistent, causing the drawing functionality
-  // to occasionally invert (mouseup: drawing, mousedown: stop drawing)
-  if (x) container.addEventListener("mouseover", colorMe);
-  else container.removeEventListener("mouseover", colorMe);
-}
+// // right click: eraser
+// etchASketch.addEventListener("contextmenu", (e) => {
+//   console.log("eraser mode activated")
+// }
+
+// drag & drop was affecting drawing mode / affecting toggle
+etchASketch.addEventListener("dragstart", (e) => {
+  e.preventDefault();
+});
+
+etchASketch.addEventListener("drop", (e) => {
+  e.preventDefault();
+});
+
+//
+// FUNCTIONS
+//
 
 // create etch-a-sketch grid
-function createGrid(newSize) {
-  for (let row = 0; row < newSize; row++) {
-    console.log(rows[row]);
+function createGrid(size) {
+  for (let row = 0; row < size; row++) {
     rows[row] = document.createElement("div");
     rows[row].classList.add("row");
     rows[row].setAttribute("draggable", false);
 
     // within each row, create sizeOfGrid number of squares:
-    for (let square = 0; square < newSize; square++) {
+    for (let square = 0; square < size; square++) {
       // prevent each iteration from overwriting the previous 1-16
-      let sq = newSize * row + square;
+      let sq = size * row + square;
       squares[sq] = document.createElement("div");
       squares[sq].classList.add("square");
+      squares[sq].style.backgroundColor = bgColor.value;
       squares[sq].setAttribute("draggable", false);
       rows[row].appendChild(squares[sq]);
     }
     // append row of 16 squares to final container
-    container.appendChild(rows[row]);
+    etchASketch.appendChild(rows[row]);
   }
 }
 
 // remove all rows from the container
 function removeGrid() {
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
+  while (etchASketch.firstChild) {
+    etchASketch.removeChild(etchASketch.firstChild);
   }
 }
 
-// mouseover callback: highlights square via css properties
-let colorMe = function (square) {
-  // console.log(square.target);
-  square.target.classList.add("color-me");
-};
-
-// reset grid background-color / wipe drawing
-function resetGrid() {
+// erase drawing / set all squares to bg-color
+function eraseDrawing() {
   squares.forEach((square) => {
-    square.classList.remove("color-me");
+    square.style.backgroundColor = bgColor.value;
+    square.removeAttribute("data-changed");
   });
 }
 
-// drag & drop was preventing drawing mode from toggling on/off
-container.addEventListener("dragstart", (e) => {
-  e.preventDefault();
-});
+// toggle drawing functionality
+function toggleDrawing(x) {
+  // var = !var was inconsistent, causing the drawing functionality
+  // to occasionally invert (mouseup: drawing, mousedown: stop drawing)
+  if (x) etchASketch.addEventListener("mouseover", colorMe);
+  else etchASketch.removeEventListener("mouseover", colorMe);
+}
 
-container.addEventListener("drop", (e) => {
-  e.preventDefault();
-});
+// mouseover callback: highlights square based on fgColor value
+let colorMe = function (square) {
+  square.target.style.backgroundColor = fgColor.value;
+  square.target.setAttribute("data-changed", true);
+};
