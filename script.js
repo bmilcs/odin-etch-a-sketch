@@ -57,6 +57,11 @@ document.addEventListener("mousedown", (e) => {
   }
 });
 
+// click: color in current square (hovering requires leaving current square)
+etchASketch.onclick = (e) => {
+  e.target.style.backgroundColor = color;
+};
+
 // mouseup: disable drawing mode
 document.addEventListener("mouseup", (e) => {
   toggleDrawingMode();
