@@ -52,6 +52,7 @@ etchASketch.addEventListener("mousedown", (e) => {
     // right click: draw in bgColor (erase)
   } else if (e.button === 2) {
     color = bgColor.value;
+    e.target.removeAttribute("data-change");
     eraserMode = true;
     toggleDrawingMode("x");
   }
