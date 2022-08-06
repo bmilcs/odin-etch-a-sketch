@@ -1,3 +1,7 @@
+//
+// VARIABLE DECLARATIONS
+//
+
 const body = document.getElementsByTagName("body")[0];
 const placeholder = document.getElementById("etch-a-sketch");
 const etchASketch = document.createElement("div");
@@ -8,35 +12,35 @@ const fgColor = document.getElementById("fg-color");
 const bgColor = document.getElementById("bg-color");
 const rows = [];
 const squares = [];
+let color = fgColor.value;
 let drawingToggle;
-let oldBackgroundColor = "rgb(255, 255, 255)";
+let eraserMode = false;
 
-// draw initial grid of 16x16
+//
+// INITIAL SETUP
+//
+
+// create initial grid of 16x16 & add etchASketch to the placeholder
 createGrid("16");
-
-// setup main etch-a-sketch container
 etchASketch.classList.add("container");
 etchASketch.setAttribute("draggable", false);
-
-// add container to etchASketch placeholder
 placeholder.appendChild(etchASketch);
 
 //
 // EVENT LISTENERS
 //
 
-// slider onchange: set sizeOfGrid to slider.value
+// resizing grid
 slider.onchange = function () {
   removeGrid();
   createGrid(this.value);
 };
 
-// bg-color change: set color of squares that haven't been drawn yet
+// bg-color change: set color of squares that haven't been drawn in
 bgColor.onchange = function () {
   squares.forEach((square) => {
     if (!square.dataset.changed) square.style.backgroundColor = this.value;
   });
-  oldBackgroundColor = this.value;
 };
 
 // clear button: reset grid
@@ -44,20 +48,45 @@ clearBtn.onclick = () => eraseDrawing();
 
 // mousedown: enable drawing mode
 document.addEventListener("mousedown", (e) => {
-  toggleDrawing("x");
+  if (e.button === 0) {
+    // left click: draw in fgColor
+    toggleDrawingMode("x");
+    color = fgColor.value;
+  } else if (e.button === 2) {
+    // right click: draw in bgColor
+    toggleDrawingMode("x");
+    color = bgColor.value;
+    eraserMode = true;
+  }
 });
 
 // mouseup: disable drawing mode
 document.addEventListener("mouseup", (e) => {
-  toggleDrawing();
+  toggleDrawingMode();
+  eraserMode = false;
 });
 
-// // right click: eraser
-// etchASketch.addEventListener("contextmenu", (e) => {
-//   console.log("eraser mode activated")
-// }
+//
+// PREVENT DEFAULTS
+//
 
-// drag & drop was affecting drawing mode / affecting toggle
+// right click
+if (document.addEventListener) {
+  document.addEventListener(
+    "contextmenu",
+    (e) => {
+      e.preventDefault();
+    },
+    false
+  );
+} else {
+  document.attachEvent("oncontextmenu", (e) => {
+    window.event.returnValue = false;
+  });
+}
+
+// drag & drop
+// this was having a negative effect on toggleDrawingMode
 etchASketch.addEventListener("dragstart", (e) => {
   e.preventDefault();
 });
@@ -69,6 +98,21 @@ etchASketch.addEventListener("drop", (e) => {
 //
 // FUNCTIONS
 //
+
+// toggle drawing functionality: add/remove eventlistener
+function toggleDrawingMode(x, color) {
+  // var = !var was inconsistent, causing the drawing functionality
+  // to occasionally invert (mouseup: drawing, mousedown: stop drawing)
+  if (x) etchASketch.addEventListener("mouseover", colorMe);
+  else etchASketch.removeEventListener("mouseover", colorMe);
+}
+
+// mouseover callback: highlights square based on fgColor value
+let colorMe = function (square) {
+  square.target.style.backgroundColor = color;
+  if (eraserMode) square.target.removeAttribute("data-changed");
+  else square.target.setAttribute("data-changed", true);
+};
 
 // create etch-a-sketch grid
 function createGrid(size) {
@@ -106,17 +150,3 @@ function eraseDrawing() {
     square.removeAttribute("data-changed");
   });
 }
-
-// toggle drawing functionality
-function toggleDrawing(x) {
-  // var = !var was inconsistent, causing the drawing functionality
-  // to occasionally invert (mouseup: drawing, mousedown: stop drawing)
-  if (x) etchASketch.addEventListener("mouseover", colorMe);
-  else etchASketch.removeEventListener("mouseover", colorMe);
-}
-
-// mouseover callback: highlights square based on fgColor value
-let colorMe = function (square) {
-  square.target.style.backgroundColor = fgColor.value;
-  square.target.setAttribute("data-changed", true);
-};
