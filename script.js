@@ -7,7 +7,7 @@ const placeholder = document.getElementById("etch-a-sketch");
 const etchASketch = document.createElement("div");
 const slider = document.getElementById("grid-size-range");
 const clearBtn = document.getElementById("clear-btn");
-const rainbowBtn = document.getElementById("rainbow-btn");
+// const rainbowBtn = document.getElementById("rainbow-btn");
 const fgColor = document.getElementById("fg-color");
 const bgColor = document.getElementById("bg-color");
 const rows = [];
@@ -52,9 +52,9 @@ etchASketch.addEventListener("mousedown", (e) => {
     // right click: draw in bgColor (erase)
   } else if (e.button === 2) {
     color = bgColor.value;
-    e.target.removeAttribute("data-change");
-    eraserMode = true;
     toggleDrawingMode("x");
+    e.target.removeAttribute("data-changed");
+    eraserMode = true;
   }
   e.target.style.backgroundColor = color;
 });
