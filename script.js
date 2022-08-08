@@ -7,7 +7,7 @@ const placeholder = document.getElementById("etch-a-sketch");
 const etchASketch = document.createElement("div");
 const slider = document.getElementById("grid-size-range");
 const clearBtn = document.getElementById("clear-btn");
-// const rainbowBtn = document.getElementById("rainbow-btn");
+const toggleGridBtn = document.getElementById("toggle-grid-btn");
 const fgColor = document.getElementById("fg-color");
 const bgColor = document.getElementById("bg-color");
 const rows = [];
@@ -79,6 +79,13 @@ if (document.addEventListener) {
     window.event.returnValue = false;
   });
 }
+
+// toggle grid button (border on each square)
+toggleGridBtn.onclick = () => {
+  if (squares[0].style.border === "0px")
+    squares.forEach((square) => (square.style.border = "1px solid #00000033"));
+  else squares.forEach((square) => (square.style.border = "0"));
+};
 
 // prevent default: drag & drop
 // this was having a negative effect on toggleDrawingMode
