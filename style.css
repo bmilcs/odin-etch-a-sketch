@@ -123,8 +123,8 @@ button:hover {
 
 /* etch-a-sketch canvas */
 .container {
-  width: 640px;
-  height: 640px;
+  width: 740px;
+  height: 740px;
   display: flex;
   flex-direction: column;
 }
@@ -152,7 +152,6 @@ footer {
 
 .footer-container {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   margin: auto;
@@ -166,7 +165,6 @@ footer img {
 }
 
 footer img:hover {
-  /* transform: scale(1.); */
   filter: none;
   background-color: var(--clr-neutral-900);
   border-radius: 15rem;
@@ -228,12 +226,10 @@ input[type="range"]::-ms-track {
   color: transparent;
 }
 input[type="range"]::-ms-fill-lower {
-  /* background: #000000; */
   border: 0px solid #ffffff;
   border-radius: 0px;
 }
 input[type="range"]::-ms-fill-upper {
-  /* background: #000000; */
   border: 0px solid #ffffff;
   border-radius: 0px;
 }
