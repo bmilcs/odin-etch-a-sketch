@@ -16,22 +16,27 @@
     </header>
 
     <section class="section">
+      <p id="instructions">right click: eraser</p>
       <div class="section-container">
         <div class="toolbox-container">
           <!-- <button id="raindow-btn">rainbow mode</button> -->
           <button id="clear-btn">clear drawing</button>
-          <button id="toggle-grid-btn">toggle grid</button>
-          <input
-            type="range"
-            min="16"
-            max="64"
-            value="16"
-            class="slider"
-            id="grid-size-range"
-          />
+          <button id="shader-mode-btn">shader mode</button>
           <input type="color" id="fg-color" name="fg-color" value="#000000" />
+
           <input type="color" id="bg-color" name="bg-color" value="#ffffff" />
-          <p>eraser: right click</p>
+          <div>
+            <input
+              type="range"
+              min="16"
+              max="64"
+              value="16"
+              class="slider"
+              id="grid-size-range"
+            />
+            <p>Grid Size</p>
+          </div>
+          <button id="toggle-grid-btn">toggle grid</button>
         </div>
         <div id="etch-a-sketch">
           <!-- placeholder (content created with script.js) -->

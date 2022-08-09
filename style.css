@@ -71,8 +71,10 @@ section {
   padding: 0.5rem;
   align-items: center;
   min-width: 12rem;
+  border: var(--border);
 }
 
+.toolbox-container > * > *,
 .toolbox-container > * {
   height: 3rem;
   width: 100%;
@@ -85,6 +87,13 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.toolbox-container > div {
+  height: 5rem;
+  flex-direction: column;
+  border: 0;
+  padding: 0;
 }
 
 .toolbox-container p {
