@@ -25,7 +25,7 @@ let shaderMode = false;
 //
 
 // create initial grid of 16x16 & add etchASketch to the placeholder
-createGrid("16");
+createGrid("32");
 etchASketch.classList.add("container");
 etchASketch.setAttribute("draggable", false);
 placeholder.appendChild(etchASketch);
