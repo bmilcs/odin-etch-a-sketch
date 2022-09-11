@@ -11,7 +11,7 @@ Welcome to Bryan Miller's Rock Etch-A-Sketch Project, the [fourth assignment](ht
 # Links
 
 - [Live Demo](https://bmilcs.github.io/odin-etch-a-sketch/)
-- [My Odin Project Progress](https://github.com/bmilcs/op)
+- [My Odin Project Progress](https://github.com/bmilcs/odin-project)
 
 ## Screenshots
 
